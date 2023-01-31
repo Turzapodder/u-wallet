@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uwallet/signup_phone.dart';
 import 'package:uwallet/usertype.dart';
 
 class WelcomePage extends StatelessWidget {
@@ -72,25 +73,31 @@ class WelcomePage extends StatelessWidget {
                         SizedBox(
                           height: 20,
                         ),
-                        Container(
-                          padding:
-                          EdgeInsets.symmetric(horizontal: 100.0, vertical: 10),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: const Color(0xFFFFAE58),
-                                  width: 2.0,
-                                  style: BorderStyle.solid),
-                              borderRadius: BorderRadius.circular(30.0)),
-                          child: Row(mainAxisSize: MainAxisSize.min, children: const [
-                            Text(
-                                "Sign Up",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 18.0,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold)
-                            ),
-                          ]),
+                        InkWell(
+                          onTap: (){
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (context) => Register()));
+                          },
+                          child: Container(
+                            padding:
+                            EdgeInsets.symmetric(horizontal: 100.0, vertical: 10),
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    color: const Color(0xFFFFAE58),
+                                    width: 2.0,
+                                    style: BorderStyle.solid),
+                                borderRadius: BorderRadius.circular(30.0)),
+                            child: Row(mainAxisSize: MainAxisSize.min, children: const [
+                              Text(
+                                  "Sign Up",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold)
+                              ),
+                            ]),
+                          ),
                         ),
                       ],
                     ),
