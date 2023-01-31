@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uwallet/usertype.dart';
 
 class WelcomePage extends StatelessWidget {
   @override
@@ -42,26 +43,32 @@ class WelcomePage extends StatelessWidget {
                         SizedBox(
                           height: 50,
                         ),
-                         Container(
-                          padding:
-                          EdgeInsets.symmetric(horizontal: 100.0, vertical: 10),
-                          decoration: BoxDecoration(
-                              color: Color(0xFFFFAE58),
-                              borderRadius: BorderRadius.circular(90.0)),
-                          child: Row(mainAxisSize: MainAxisSize.min, children: const [
-                            Text(
-                                "Log In",
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 18.0,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold)
-                            ),
-                            SizedBox(
-                              width: 15.0,
-                            ),
-                          ]),
+                         InkWell(
+                           onTap: (){
+                             Navigator.pushReplacement(context,
+                                 MaterialPageRoute(builder: (context) => MyPage()));
+                           },
+                           child: Container(
+                            padding:
+                            EdgeInsets.symmetric(horizontal: 100.0, vertical: 10),
+                            decoration: BoxDecoration(
+                                color: Color(0xFFFFAE58),
+                                borderRadius: BorderRadius.circular(90.0)),
+                            child: Row(mainAxisSize: MainAxisSize.min, children: const [
+                              Text(
+                                  "Log In",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold)
+                              ),
+                              SizedBox(
+                                width: 15.0,
+                              ),
+                            ]),
                         ),
+                         ),
                         SizedBox(
                           height: 20,
                         ),
