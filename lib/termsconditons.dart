@@ -5,9 +5,10 @@ class TermsAndConditionsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        elevation: 0,
         centerTitle: true,
         backgroundColor: Color(0xFFFFAE58),
-        title: Text('Terms and Conditions', style: TextStyle(fontWeight: FontWeight.bold),),
+        title: Text('Terms and Conditions', style: TextStyle(fontWeight: FontWeight.w400),),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context),
@@ -46,48 +47,50 @@ class TermsAndConditionsPage extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 30,
+            height: 20,
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              SizedBox(
-                width: 150,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-
-                    backgroundColor: Colors.white,
-                    elevation: 0,
-                    side: BorderSide(width:2, color: Color(0xFFFFAE58)),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
+          Container(
+            height: 85,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                SizedBox(
+                  width: 150,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.white,
+                      elevation: 0,
+                      side: BorderSide(width:2, color: Color(0xFFFFAE58)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
                     ),
+                    onPressed: () {
+                      // Handle "decline" button press
+                    },
+                    child: Text('Decline',style: TextStyle(color: Color(0xFFFFAE58), fontSize: 17, fontWeight: FontWeight.bold)),
                   ),
-                  onPressed: () {
-                    // Handle "decline" button press
-                  },
-                  child: Text('Decline',style: TextStyle(color: Color(0xFFFFAE58), fontSize: 17, fontWeight: FontWeight.bold)),
                 ),
-              ),
-              SizedBox(
-                width: 150,
-                child: TextButton(
-                  style: TextButton.styleFrom(
-
-                    backgroundColor: Color(0xFFFFAE58),
-                    elevation: 0,
-                    side: BorderSide(width:2, color: Color(0xFFFFAE58)),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
+                SizedBox(
+                  width: 150,
+                  child: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Color(0xFFFFAE58),
+                      elevation: 0,
+                      side: BorderSide(width:2, color: Color(0xFFFFAE58)),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
                     ),
+                    onPressed: () {
+                      // Handle "accept" button press
+                    },
+                    child: Text('Accept', style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),),
                   ),
-                  onPressed: () {
-                    // Handle "accept" button press
-                  },
-                  child: Text('Accept', style: TextStyle(color: Colors.white, fontSize: 17, fontWeight: FontWeight.bold),),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ],
       ),
