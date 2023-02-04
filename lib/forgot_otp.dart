@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:uwallet/create_new_password.dart';
 import 'package:uwallet/set_password.dart';
 import 'package:uwallet/widgets/otp_dots.dart';
 
 //import 'otp.dart';
 
-class OtpPage extends StatefulWidget {
-  final String number;
-  OtpPage({required this.number});
+class ForgotOtpPage extends StatefulWidget {
+  final String number = "01871038150";
+
 
   @override
-  _OtpPageState createState() => _OtpPageState();
+  _ForgotOtpPageState createState() => _ForgotOtpPageState();
 }
 
-class _OtpPageState extends State<OtpPage> {
+class _ForgotOtpPageState extends State<ForgotOtpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,7 +70,7 @@ class _OtpPageState extends State<OtpPage> {
                   ),
                   children: <TextSpan>[
                     TextSpan(
-                      text: 'Enter the code sent to ',
+                      text: 'A verification code was just sent to this number: ',
                       style: TextStyle(
                         color: Colors.black54,
                       ),
@@ -81,20 +82,6 @@ class _OtpPageState extends State<OtpPage> {
                       ),
                     ),
                   ],
-                ),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              InkWell(
-                onTap: () => Navigator.pop(context),
-                child: Text(
-                  "Change phone Number?",
-                  style: TextStyle(
-                    color: Color(0xFFFFAE58),
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
                 ),
               ),
               SizedBox(
@@ -130,7 +117,7 @@ class _OtpPageState extends State<OtpPage> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PasswordPage()));
+                                builder: (context) => ForgotPassPage()));
                       },
                       child: SizedBox(
                         width: double.infinity,

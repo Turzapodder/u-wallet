@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:uwallet/splashscreen.dart';
 
 void main() {
@@ -11,6 +12,13 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+            statusBarColor: Colors.transparent
+          //color set to transperent or set your own color
+        )
+    );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
 

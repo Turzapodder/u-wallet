@@ -171,7 +171,7 @@ class _RegisterState extends State<Register> {
                           child: Text(
                             'Send Code',
                             style: TextStyle(
-                              fontSize: 16,
+                              fontSize: 18,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

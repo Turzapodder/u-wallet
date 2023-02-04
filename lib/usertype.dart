@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uwallet/registration_proc.dart';
 import 'package:uwallet/termsconditons.dart';
 
 class MyPage extends StatelessWidget {
@@ -90,7 +91,7 @@ class MyPage extends StatelessWidget {
                             ),
                             onPressed: () {
                               Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (context) => TermsAndConditionsPage()));
+                                  MaterialPageRoute(builder: (context) => Reg_proc()));
                             },
                             child: Text('Teenager',style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFFAE58), fontSize: 16)),
                           ),
