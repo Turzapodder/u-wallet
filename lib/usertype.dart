@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+=======
+import 'package:uwallet/registration_proc.dart';
+>>>>>>> master
 import 'package:uwallet/termsconditons.dart';
 
 class MyPage extends StatelessWidget {
@@ -90,7 +94,11 @@ class MyPage extends StatelessWidget {
                             ),
                             onPressed: () {
                               Navigator.pushReplacement(context,
+<<<<<<< HEAD
                                   MaterialPageRoute(builder: (context) => TermsAndConditionsPage()));
+=======
+                                  MaterialPageRoute(builder: (context) => Reg_proc()));
+>>>>>>> master
                             },
                             child: Text('Teenager',style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFFAE58), fontSize: 16)),
                           ),

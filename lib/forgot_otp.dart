@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
-<<<<<<< HEAD
-import 'package:flutter/services.dart';
-=======
+import 'package:uwallet/create_new_password.dart';
 import 'package:uwallet/set_password.dart';
->>>>>>> master
 import 'package:uwallet/widgets/otp_dots.dart';
 
 //import 'otp.dart';
 
-class OtpPage extends StatefulWidget {
-  final String number;
-  OtpPage({required this.number});
+class ForgotOtpPage extends StatefulWidget {
+  final String number = "01871038150";
+
 
   @override
-  _OtpPageState createState() => _OtpPageState();
+  _ForgotOtpPageState createState() => _ForgotOtpPageState();
 }
 
-class _OtpPageState extends State<OtpPage> {
+class _ForgotOtpPageState extends State<ForgotOtpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -73,7 +70,7 @@ class _OtpPageState extends State<OtpPage> {
                   ),
                   children: <TextSpan>[
                     TextSpan(
-                      text: 'Enter the code sent to ',
+                      text: 'A verification code was just sent to this number: ',
                       style: TextStyle(
                         color: Colors.black54,
                       ),
@@ -88,40 +85,18 @@ class _OtpPageState extends State<OtpPage> {
                 ),
               ),
               SizedBox(
-                height: 5,
-              ),
-              InkWell(
-                onTap: () => Navigator.pop(context),
-                child: Text(
-                  "Change phone Number?",
-                  style: TextStyle(
-                    color: Color(0xFFFFAE58),
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
-              SizedBox(
                 height: 28,
               ),
               Container(
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: Colors.white,
-<<<<<<< HEAD
-                  borderRadius: BorderRadius.circular(12),
-=======
                   //borderRadius: BorderRadius.circular(12),
->>>>>>> master
                 ),
                 child: Column(
                   children: [
                     Padding(
-<<<<<<< HEAD
-                      padding: const EdgeInsets.symmetric(horizontal: 30),
-=======
                       padding: const EdgeInsets.symmetric(horizontal: 10),
->>>>>>> master
                       child: Form(
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -137,43 +112,12 @@ class _OtpPageState extends State<OtpPage> {
                     SizedBox(
                       height: 30,
                     ),
-<<<<<<< HEAD
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          /*Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => Otp()),
-                          );*/
-                        },
-                        style: ButtonStyle(
-                          foregroundColor:
-                              MaterialStateProperty.all<Color>(Colors.white),
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                              Color(0xFFFFAE58)),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24.0),
-                            ),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.all(14.0),
-                          child: Text(
-                            'Send Code',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-=======
                     InkWell(
                       onTap: () {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => PasswordPage()));
+                                builder: (context) => ForgotPassPage()));
                       },
                       child: SizedBox(
                         width: double.infinity,
@@ -195,7 +139,6 @@ class _OtpPageState extends State<OtpPage> {
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold)),
                               ]),
->>>>>>> master
                         ),
                       ),
                     ),

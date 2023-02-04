@@ -176,7 +176,11 @@ class _OnBoardState extends State<OnBoard> {
                             },
                             child: Container(
                               padding: EdgeInsets.symmetric(
+<<<<<<< HEAD
                                 horizontal: 150.0,
+=======
+                                horizontal: 100.0,
+>>>>>>> master
                                 vertical: 15,
                               ),
                               decoration: BoxDecoration(
