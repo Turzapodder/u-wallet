@@ -4,6 +4,8 @@ import 'package:uwallet/HomePage/notification_page.dart';
 import 'package:uwallet/signup_phone.dart';
 import 'package:uwallet/usertype.dart';
 
+import 'HomePage/PaymentPage.dart';
+
 class Welldone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -58,7 +60,7 @@ class Welldone extends StatelessWidget {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Notifications()));
+                                  builder: (context) => PaymentPage()));
                         },
                         child: SizedBox(
                           width: 250,
@@ -79,7 +81,7 @@ class Welldone extends StatelessWidget {
 
                                       Navigator.push(
                                         context,
-                                        MaterialPageRoute(builder: (context) => Notifications ()),
+                                        MaterialPageRoute(builder: (context) => PaymentPage ()),
                                       );
                                     },
                                     child: Text(
