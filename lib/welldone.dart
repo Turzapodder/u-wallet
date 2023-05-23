@@ -23,6 +23,7 @@ class Welldone extends StatelessWidget {
               body: Column(children: <Widget>[
                 Expanded(
                     child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 60),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -50,33 +51,38 @@ class Welldone extends StatelessWidget {
                             ),
                           ),
 
-
+                          userType=="Adult"?
                           Image.asset(
-                            'assets/images/well_done.png', fit: BoxFit.cover,),
+                            'assets/images/well_done.png', fit: BoxFit.cover,)
+                              :Image.asset(
+                            'assets/images/well_done2.png', fit: BoxFit.cover,)
+                          ,
 
-                          InkWell(
-                            onTap: () {
-                              Navigator.pushReplacement(
+                          Center(
+                            child: ElevatedButton(
+                              onPressed: () {
+
+                                Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => LoginPage()));
-                            },
-                            child: Container(
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: Text(
-                                "Continue",
-                                style: TextStyle(
-                                  fontSize: 18.0,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
+                                    builder: (context) => LoginPage(),
+                                  ),
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                backgroundColor: userType=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25.0),
                                 ),
                               ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 15.0, horizontal: 40.0),
+                                child: Text('Finish', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+                              ),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     )),

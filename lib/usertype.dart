@@ -21,6 +21,7 @@ class MyPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 0,
         centerTitle: true,
         backgroundColor: Color(0xFFFFAE58),
         title: Text('User Information',  style: TextStyle(fontWeight: FontWeight.bold),),

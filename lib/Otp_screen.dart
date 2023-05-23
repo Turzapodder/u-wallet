@@ -90,7 +90,7 @@ class _OtpPageState extends State<OtpPage> {
                             TextSpan(
                               text: widget.number,
                               style: TextStyle(
-                                color: Color(0xFFFFAE58),
+                                color: userType=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
                               ),
                             ),
                           ],
@@ -104,7 +104,7 @@ class _OtpPageState extends State<OtpPage> {
                         child: Text(
                           "Change phone Number?",
                           style: TextStyle(
-                            color: Color(0xFFFFAE58),
+                            color: userType=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
@@ -155,7 +155,7 @@ class _OtpPageState extends State<OtpPage> {
                                     vertical: 15,
                                   ),
                                   decoration: BoxDecoration(
-                                      color: Color(0xFFFFAE58),
+                                      color: userType=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
                                       borderRadius: BorderRadius.circular(
                                           25.0)),
                                   child: Row(

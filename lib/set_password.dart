@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uwallet/reg_success.dart';
+import 'package:uwallet/registration_proc.dart';
 
 class PasswordPage extends StatefulWidget {
   @override
@@ -132,7 +133,7 @@ class _PasswordPageState extends State<PasswordPage> {
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => RegSuccessPage()));
+                                      builder: (context) => Reg_proc()));
                             },
                             child: SizedBox(
                               width: double.infinity,
