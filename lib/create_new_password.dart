@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:uwallet/login_screen.dart';
 import 'package:uwallet/reg_success.dart';
 
 class ForgotPassPage extends StatefulWidget {
@@ -160,7 +161,7 @@ class _ForgotPassPageState extends State<ForgotPassPage> {
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => RegSuccessPage()));
+                              builder: (context) => LoginPage()));
                     },
                     child: SizedBox(
                       width: double.infinity,

@@ -123,7 +123,7 @@ class _ForgotOtpPageState extends State<ForgotOtpPage> {
                         width: double.infinity,
                         child: Container(
                           padding: EdgeInsets.symmetric(
-                            horizontal: 100.0,
+                            horizontal: 30.0,
                             vertical: 15,
                           ),
                           decoration: BoxDecoration(
@@ -133,11 +133,11 @@ class _ForgotOtpPageState extends State<ForgotOtpPage> {
                               mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text("Continue",
+                                Text("Enter a New Password",
                                     style: TextStyle(
                                         fontSize: 18.0,
                                         color: Colors.white,
-                                        fontWeight: FontWeight.bold)),
+                                        fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
                               ]),
                         ),
                       ),

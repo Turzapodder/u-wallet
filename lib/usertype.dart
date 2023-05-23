@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:uwallet/registration_proc.dart';
 import 'package:uwallet/termsconditons.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyPage extends StatelessWidget {
+
+  final String userTypeKey = 'userTypeKey';
+
+  Future<void> saveUserType(String userType) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(userTypeKey, userType);
+  }
+
+  Future<String?> getUserType() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString(userTypeKey);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,6 +81,7 @@ class MyPage extends StatelessWidget {
                                 ),
                               ),
                               onPressed: () {
+                                saveUserType("Adult");
                                 Navigator.pushReplacement(context,
                                     MaterialPageRoute(builder: (context) => TermsAndConditionsPage()));
                               },
@@ -90,8 +104,9 @@ class MyPage extends StatelessWidget {
                               ),
                             ),
                             onPressed: () {
+                              saveUserType("Teenager");
                               Navigator.pushReplacement(context,
-                                  MaterialPageRoute(builder: (context) => Reg_proc()));
+                                  MaterialPageRoute(builder: (context) => TermsAndConditionsPage()));
                             },
                             child: Text('Teenager',style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFFFAE58), fontSize: 16)),
                           ),

@@ -1,5 +1,6 @@
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
+import 'package:uwallet/login_screen.dart';
 import 'package:uwallet/welcome.dart';
 import 'models/onboard_model.dart';
 
@@ -68,7 +69,7 @@ class _OnBoardState extends State<OnBoard> {
             onPressed: () {
               _storeOnboardInfo();
               Navigator.pushReplacement(context,
-                  MaterialPageRoute(builder: (context) => WelcomePage()));
+                  MaterialPageRoute(builder: (context) => LoginPage()));
             },
             child: Text(
               "Skip",

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:uwallet/login_screen.dart';
-import 'package:uwallet/signup_phone.dart';
 import 'package:uwallet/usertype.dart';
 
 class RegSuccessPage extends StatelessWidget {
@@ -51,7 +49,7 @@ class RegSuccessPage extends StatelessWidget {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => LoginPage()));
+                                builder: (context) => MyPage()));
                       },
                       child: SizedBox(
                         width: double.infinity,
