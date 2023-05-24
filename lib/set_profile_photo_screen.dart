@@ -4,8 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:uwallet/login_screen.dart';
-import 'package:uwallet/welcome.dart';
 import 'package:uwallet/welldone.dart';
 import '../widgets/common_buttons.dart';
 import 'package:uwallet/select_photo_options_screen.dart';
@@ -163,8 +161,8 @@ class _SetProfilePhotoScreenState extends State<SetProfilePhotoScreen> {
                                   ),
                                   child: Center(
                                     child: _image == null
-                                        ? Image.asset('assets/images/face2.png',
-                                      fit: BoxFit.cover,)
+                                        ? userType=="Adult"?Image.asset('assets/images/face.png',fit: BoxFit.cover)
+                                          :Image.asset('assets/images/face2.png',fit: BoxFit.cover)
                                         : CircleAvatar(
                                       backgroundImage: FileImage(_image!),
                                       radius: 250.0,

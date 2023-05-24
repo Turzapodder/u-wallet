@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:uwallet/contacts.dart';
+import 'package:uwallet/Dahsboard_Container.dart';
 import 'package:uwallet/forgot_otp.dart';
 import 'package:uwallet/signup_phone.dart';
 import 'package:uwallet/usertype.dart';
@@ -152,7 +152,7 @@ class _LoginPageState extends State<LoginPage> {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                ContactsPage()));
+                                                DashboardContainer()));
                                   },
                                   child: SizedBox(
                                     width: double.infinity,

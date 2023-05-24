@@ -16,5 +16,3 @@ class OnboardModel {
   });
 
 }
-
-const kRadious =0.0;

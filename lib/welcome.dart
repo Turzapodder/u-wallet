@@ -44,12 +44,12 @@ class WelcomePage extends StatelessWidget {
                         SizedBox(
                           height: 50,
                         ),
-                        InkWell(
-                          onTap: (){
-                            Navigator.pushReplacement(context,
-                                MaterialPageRoute(builder: (context) => MyPage()));
-                          },
-                          child: Container(
+                         InkWell(
+                           onTap: (){
+                             Navigator.pushReplacement(context,
+                                 MaterialPageRoute(builder: (context) => MyPage()));
+                           },
+                           child: Container(
                             padding:
                             EdgeInsets.symmetric(horizontal: 100.0, vertical: 10),
                             decoration: BoxDecoration(
@@ -68,8 +68,8 @@ class WelcomePage extends StatelessWidget {
                                 width: 15.0,
                               ),
                             ]),
-                          ),
                         ),
+                         ),
                         SizedBox(
                           height: 20,
                         ),

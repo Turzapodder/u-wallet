@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uwallet/set_ID_photo_screen.dart';
+import 'package:uwallet/set_birth_photo_screen.dart';
 
 class Reg_proc extends StatelessWidget {
   Future<String> getUserType() async {
@@ -86,7 +87,8 @@ class Reg_proc extends StatelessWidget {
                                   Padding(
                                     padding: const EdgeInsets.only(left: 20.0),
                                     child: Text(
-                                      "Take Your NID Photo",
+                                      userType=="Adult"?
+                                      "Take Your NID Photo": "Take Birth Certificate\n Photo",
                                       style: TextStyle(
                                         fontSize: 18,
                                         color: Colors.black54,
@@ -171,11 +173,17 @@ class Reg_proc extends StatelessWidget {
                                 ),
                                 onPressed: () {
                                   // Handle "accept" button press
+                                  userType=="Adult"?
                                   Navigator.pushReplacement(
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              SetPhotoScreen()));
+                                              SetPhotoScreen()))
+                                  :Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              SetBirthPhotoScreen()));
                                 },
                                 child: Text(
                                   'Start',

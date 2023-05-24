@@ -112,7 +112,7 @@ class TermsAndConditionsPage extends StatelessWidget {
                           onPressed: () {
                             Navigator.pushReplacement(context,
                                 MaterialPageRoute(
-                                    builder: (context) => Reg_proc()));
+                                    builder: (context) => Register()));
                           },
                           child: Text('Accept', style: TextStyle(
                               color: Colors.white,
