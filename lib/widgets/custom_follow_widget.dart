@@ -45,7 +45,7 @@ class _CustomFollowNotifcationState extends State<CustomFollowNotifcation> {
         ),
         Expanded(
           child: Padding(
-            padding: EdgeInsets.only(left: follow == false ? 50 : 50),
+            padding: EdgeInsets.only(left: 10),
             child: CustomButton(
               height: 28,
               color: follow == false ? Color(0xFFFFAE58) : Color(0xFFF4F5F7),

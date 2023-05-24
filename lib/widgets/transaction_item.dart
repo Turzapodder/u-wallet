@@ -17,7 +17,7 @@ class TransactionWidget extends StatelessWidget {
         padding: EdgeInsets.only(top: 15,),
         child: Container(
           width: double.infinity,
-          height: 80,
+          height: 70,
           decoration: BoxDecoration(
           ),
           child: Row(
@@ -25,8 +25,8 @@ class TransactionWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
-                height: 60,
-                width: 60,
+                height: 50,
+                width: 50,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: expense.bg,
@@ -45,11 +45,11 @@ class TransactionWidget extends StatelessWidget {
                 ],
               ),
               SizedBox(
-                width: 15,
+                width: 8,
               ),
               Expanded(
                 child: Text(expense.amount,
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19), textAlign: TextAlign.end,),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17), textAlign: TextAlign.end,),
               )
             ],
           ),
