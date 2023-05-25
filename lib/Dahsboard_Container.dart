@@ -2,6 +2,7 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_flutter/icons_flutter.dart';
+import 'package:uwallet/Main_Pages/PaymentPage.dart';
 import 'package:uwallet/Main_Pages/Transaction_page.dart';
 import 'package:uwallet/Main_Pages/notification_page.dart';
 
@@ -48,7 +49,13 @@ class _DashboardContainerState extends State<DashboardContainer> {
         //params
         child: Icon(Icons.qr_code, color: Colors.white,),
         backgroundColor: Colors.orangeAccent,
-        onPressed: (){},
+        onPressed: (){Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PaymentPage(),
+          ),
+        );
+          },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: AnimatedBottomNavigationBar(

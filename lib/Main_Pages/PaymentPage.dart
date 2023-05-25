@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-
-
-import 'SettingsPage.dart';
+import '../HomePage/SettingsPage.dart';
 
 class PaymentPage extends StatelessWidget {
   const PaymentPage({Key? key}) : super(key: key);
@@ -12,7 +10,7 @@ class PaymentPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Color(0xFFFFAE58), // Set the background color here
+      backgroundColor: Colors.white, // Set the background color here
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(vertical: 24, horizontal: 24),
@@ -85,36 +83,48 @@ class PaymentPage extends StatelessWidget {
                 ],
               ),
               Expanded(
-                child: Center(
-                  child: GestureDetector(
-                    onTap: () {
-                      // Navigate to the QR code scan screen
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => QRCodeScanPage(),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      width: 200,
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(25),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 700,
+                      height: 600, // Adjust the size as desired
+                      child: Image.asset(
+                        'assets/images/qr.png', // Replace with the path to your image asset
+                        fit: BoxFit.cover,
                       ),
-                      child: Center(
-                        child: Text(
-                          'Scan QR Code',
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black87,
+                    ),
+                    SizedBox(height: 24),
+                    GestureDetector(
+                      onTap: () {
+                        // Navigate to the QR code scan screen
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => QRCodeScanPage(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        width: 200,
+                        height: 50,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Scan QR Code',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black87,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ],
@@ -124,6 +134,7 @@ class PaymentPage extends StatelessWidget {
     );
   }
 }
+
 
 class QRCodeScanPage extends StatefulWidget {
   @override
