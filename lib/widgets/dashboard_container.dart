@@ -1,10 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:icons_flutter/icons_flutter.dart';
+import 'package:uwallet/Main_Pages/Paymnet_contacts.dart';
+import 'package:uwallet/Main_Pages/add_money_method.dart';
+import 'package:uwallet/Main_Pages/bill_pay.dart';
+import 'package:uwallet/contacts.dart';
+
+import '../utils/Shared_preferences.dart';
 
 class dashboard_container extends StatelessWidget {
-  const dashboard_container({
+
+
+   dashboard_container({
     super.key,
   });
+
+  final String? sharedValue = SharedPreferenceHelper().getValue();
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +22,7 @@ class dashboard_container extends StatelessWidget {
       height: 80,
       width: double.infinity,
       decoration: BoxDecoration(
-          color: Colors.orangeAccent,
+          color: sharedValue=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
           borderRadius: BorderRadius.circular(15)
       ),
       child: Row(
@@ -22,12 +32,16 @@ class dashboard_container extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                icon: Icon(Icons.compare_arrows, color: Colors.white,),
+                icon: Icon(sharedValue=="Adult"?Icons.compare_arrows:FontAwesome.bolt, color: Colors.white,),
                 onPressed: () {
-                  // Add your onPressed logic here
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                          sharedValue=="Adult"?Payment_contact():PayBillPage()));
                 },
               ),
-              Text("Transfer", style: TextStyle(fontSize: 12, color: Colors.white),),
+              Text(sharedValue=="Adult"?"Transfer":"Pay Bills", style: TextStyle(fontSize: 12, color: Colors.white),),
             ],
           ),
           Container(
@@ -41,12 +55,16 @@ class dashboard_container extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               IconButton(
-                icon: Icon(MaterialCommunityIcons.wallet_outline, color: Colors.white, size: 30,),
+                icon: Icon(sharedValue=="Adult"?MaterialCommunityIcons.wallet_outline:Icons.request_page_rounded, color: Colors.white, size: 30,),
                 onPressed: () {
-                  // Add your onPressed logic here
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                          sharedValue=="Adult"?AddMoneyMethod():ContactsPage()));
                 },
               ),
-              Text("Add Money",style: TextStyle(fontSize: 12, color: Colors.white)),
+              Text(sharedValue=="Adult"?"Add Money":"Request Money",style: TextStyle(fontSize: 12, color: Colors.white)),
             ],
           ),
           Container(

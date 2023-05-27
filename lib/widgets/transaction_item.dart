@@ -4,6 +4,8 @@ import 'package:intl/intl.dart';
 
 import '../Main_Pages/Transaction_page.dart';
 
+
+
 class TransactionWidget extends StatelessWidget {
   final Expense expense;
   const TransactionWidget({
@@ -57,4 +59,12 @@ class TransactionWidget extends StatelessWidget {
       ),
     );
   }
+}
+class Expense {
+  final String merchant_name;
+  final DateTime time;
+  final String amount;
+  final Color bg;
+
+  Expense(this.merchant_name, this.time, this.amount, this.bg);
 }

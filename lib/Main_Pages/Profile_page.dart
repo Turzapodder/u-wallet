@@ -1,11 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:uwallet/Main_Pages/my_QR.dart';
 
 import '../contacts.dart';
+import 'Offer_Reward_page.dart';
 
-import 'Profile Page/HelpPage.dart';
-import 'Profile Page/OffersRewardsPage.dart';
-import 'Profile Page/PrivacySecurityPage.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key? key}) : super(key: key);
@@ -47,19 +46,26 @@ class _AccountPageState extends State<AccountPage> {
                               color: Colors.white,
                             ),
                           ),
-                          Container(
-                            height: 50,
-                            width: 50,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFFFAE58),
-                              border: Border.all(width: 1, color: Colors.white60),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            child: Icon(
-                              Icons.qr_code,
-                              color: Colors.white,
+                          GestureDetector(
+                            onTap: () {
+                              // Navigate to the next page here
+                              Example: Navigator.push(context, MaterialPageRoute(builder: (context) => MyQR()));
+                            },
+                            child: Container(
+                              height: 50,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFFFAE58),
+                                border: Border.all(width: 1, color: Colors.white60),
+                                borderRadius: BorderRadius.circular(15),
+                              ),
+                              child: Icon(
+                                Icons.qr_code,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
+
                         ],
                       ),
                       SizedBox(height: 20),
@@ -205,7 +211,7 @@ class _AccountPageState extends State<AccountPage> {
         bwTile(Icons.lock, "Privacy & Security", () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => PrivacySecurityPage()),
+            MaterialPageRoute(builder: (context) => ContactsPage()),
           );
         }),
         bwTile(
@@ -215,8 +221,7 @@ class _AccountPageState extends State<AccountPage> {
             Navigator.push(
               context,
               MaterialPageRoute(
-              builder: (context) => TransactionPage(
-
+                builder: (context) => TransactionPage(
                 ),
               ),
             );
@@ -225,13 +230,13 @@ class _AccountPageState extends State<AccountPage> {
         bwTile(Icons.help_rounded, "Help", () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => HelpPage()),
+            MaterialPageRoute(builder: (context) => ContactsPage()),
           );
         }),
         bwTile(Icons.logout, "Logout", () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => LogoutPage()),
+            MaterialPageRoute(builder: (context) => ContactsPage()),
           );
         }),
       ],
@@ -287,10 +292,3 @@ class LogoutPage extends StatelessWidget {
     );
   }
 }
-
-
-
-
-
-
-

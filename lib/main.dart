@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:uwallet/splashscreen.dart';
+import 'package:uwallet/utils/Shared_preferences.dart';
 
-void main() {
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferenceHelper().initialize();
   runApp(const MyApp());
 }
 

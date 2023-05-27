@@ -1,10 +1,13 @@
 
 import 'package:flutter/material.dart';
 
+import '../utils/Shared_preferences.dart';
 import '../widgets/custom_follow_widget.dart';
 import '../widgets/custom_like_notification.dart';
 
 class NotitcationTap extends StatelessWidget {
+
+  final String? sharedValue = SharedPreferenceHelper().getValue();
   NotitcationTap({Key? key}) : super(key: key);
   List newItem = ["liked", "follow"];
   List todayItem = ["follow", "liked", "liked"];
@@ -16,7 +19,7 @@ class NotitcationTap extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Color(0xFFFFAE58),
+        backgroundColor: sharedValue=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
         title: Text(
           'Notifications',
           style: TextStyle(fontFamily: "Titillium Web", fontWeight: FontWeight.bold),

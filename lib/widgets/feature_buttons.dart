@@ -13,6 +13,7 @@ class NewWidget extends StatelessWidget {
   final Color iconColor;
   final IconData iconName;
 
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,12 +25,9 @@ class NewWidget extends StatelessWidget {
             color: Color(0xFFF6FAFD),
             borderRadius: BorderRadius.circular(15),
           ),
-          child: IconButton(
-            icon: Icon(iconName, color: iconColor, size: 25,),
-            onPressed: () {
-              // Add onPressed logic for icon1
-            },
-          ),
+          child:
+             Icon(iconName, color: iconColor, size: 25,),
+
         ),
         Text(textLabel, style: TextStyle(fontSize: 10,), textAlign: TextAlign.center,)
       ],
