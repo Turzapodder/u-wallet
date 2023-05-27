@@ -1,9 +1,10 @@
 import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_flutter/icons_flutter.dart';
+import 'package:uwallet/Main_Pages/QR_Scanner.dart';
 import 'package:uwallet/Main_Pages/Transaction_page.dart';
 import 'package:uwallet/Main_Pages/notification_page.dart';
+import 'package:uwallet/utils/Shared_preferences.dart';
 
 import 'Main_Pages/Dashboard.dart';
 import 'Main_Pages/Profile_page.dart';
@@ -16,6 +17,7 @@ class DashboardContainer extends StatefulWidget {
 }
 
 class _DashboardContainerState extends State<DashboardContainer> {
+  final String? sharedValue = SharedPreferenceHelper().getValue();
   int _selectedIndex=0;
 
   void _navigateBottomBar(int index){
@@ -47,8 +49,15 @@ class _DashboardContainerState extends State<DashboardContainer> {
       floatingActionButton: FloatingActionButton(
         //params
         child: Icon(Icons.qr_code, color: Colors.white,),
-        backgroundColor: Colors.orangeAccent,
-        onPressed: (){},
+        backgroundColor: sharedValue=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
+        onPressed: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Scanner(),
+            ),
+          );
+        },
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: AnimatedBottomNavigationBar(
@@ -56,28 +65,11 @@ class _DashboardContainerState extends State<DashboardContainer> {
         activeIndex: _selectedIndex,
         gapLocation: GapLocation.center,
         notchSmoothness: NotchSmoothness.smoothEdge,
-        activeColor: Colors.orangeAccent,
+        activeColor: sharedValue=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
         inactiveColor: Colors.grey,
         onTap: _navigateBottomBar,
         //other params
       ),
-     /* bottomNavigationBar: CurvedNavigationBar(
-        height: 60,
-        backgroundColor: Colors.transparent,
-        buttonBackgroundColor: Colors.orangeAccent,
-        color: Colors.orangeAccent,
-        animationDuration: Duration(milliseconds: 300),
-
-        onTap: _navigateBottomBar,
-        items:[
-        Icon(Foundation.home,
-        color: Colors.white,),
-        Icon(Icons.qr_code,
-          color: Colors.white,),
-        Icon(Icons.person,
-          color: Colors.white, size: 25,),
-      ],
-      ),*/
     );
   }
 }

@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import '../utils/Shared_preferences.dart';
 import 'custom_buton.dart';
 
 class CustomFollowNotifcation extends StatefulWidget {
+
   const CustomFollowNotifcation({Key? key}) : super(key: key);
 
   @override
@@ -14,6 +16,7 @@ class CustomFollowNotifcation extends StatefulWidget {
 }
 
 class _CustomFollowNotifcationState extends State<CustomFollowNotifcation> {
+  final String? sharedValue = SharedPreferenceHelper().getValue();
   bool follow = false;
   @override
   Widget build(BuildContext context) {
@@ -48,14 +51,14 @@ class _CustomFollowNotifcationState extends State<CustomFollowNotifcation> {
             padding: EdgeInsets.only(left: 10),
             child: CustomButton(
               height: 28,
-              color: follow == false ? Color(0xFFFFAE58) : Color(0xFFF4F5F7),
+              color: follow == false ? sharedValue=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71) : Color(0xFFF4F5F7),
               textColor: follow == false ? Colors.white : Color(0xFF2E3E5C),
               onTap: () {
                 setState(() {
                   follow = !follow;
                 });
               },
-              text: "Follow",
+              text: "Accept",
             ),
           ),
         ),

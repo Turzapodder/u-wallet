@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../utils/Shared_preferences.dart';
 import '../widgets/transaction_item.dart';
 
 class TransactionPage extends StatelessWidget {
+
+  final String? sharedValue = SharedPreferenceHelper().getValue();
   TransactionPage({Key? key}) : super(key: key);
 
   final List<Expense> items = [
@@ -21,10 +24,10 @@ class TransactionPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Color(0xFFFFAE58),
+        backgroundColor: sharedValue=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
         title: Text(
           'Transactions',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          style: TextStyle(fontFamily: "Titillium Web", fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         leading: IconButton(

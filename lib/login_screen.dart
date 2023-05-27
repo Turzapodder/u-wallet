@@ -154,30 +154,22 @@ class _LoginPageState extends State<LoginPage> {
                                             builder: (context) =>
                                                 DashboardContainer()));
                                   },
-                                  child: SizedBox(
+                                  child: Container(
                                     width: double.infinity,
-
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 100.0,
-                                        vertical: 10,
-                                      ),
-                                      decoration: BoxDecoration(
-                                          color: userType=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
-                                          borderRadius: BorderRadius.circular(
-                                              20.0)),
-                                      child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .center,
-                                          children: [
-                                            Text("Sign in",
-                                                style: TextStyle(
-                                                    fontSize: 18.0,
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight
-                                                        .bold)),
-                                          ]),
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: 100.0,
+                                      vertical: 10,
+                                    ),
+                                    decoration: BoxDecoration(
+                                        color: userType=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
+                                        borderRadius: BorderRadius.circular(
+                                            20.0)),
+                                    child: Center(
+                                      child: Text("Sign in",
+                                          style: TextStyle(
+                                              fontSize: 18.0,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold)),
                                     ),
                                   ),
                                 ),

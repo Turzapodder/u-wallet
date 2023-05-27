@@ -1,6 +1,9 @@
 import 'package:contacts_service/contacts_service.dart';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:icons_flutter/icons_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:uwallet/utils/Shared_preferences.dart';
 
 class ContactsPage extends StatefulWidget {
   const ContactsPage({Key? key}) : super(key: key);
@@ -10,16 +13,77 @@ class ContactsPage extends StatefulWidget {
 }
 
 class _ContactsPageState extends State<ContactsPage> {
+  final String? sharedValue = SharedPreferenceHelper().getValue();
   List<Contact> contacts = [];
   List<Contact> filteredContacts = [];
   bool isLoading = true;
   TextEditingController searchController = TextEditingController();
+  List<Contact> invited = [];
+
 
   @override
   void initState() {
     super.initState();
     getContactPermission();
   }
+
+  final List<Flushbar> flushBars = [];
+  Future show(BuildContext context, Flushbar newFlushBar) async {
+    await Future.wait(flushBars.map((flushBar) => flushBar.dismiss()).toList());
+    flushBars.clear();
+
+    newFlushBar.show(context);
+    flushBars.add(newFlushBar);
+  }
+
+  void showTopSnackBar(BuildContext context) => show(
+    context,
+    Flushbar(
+      icon: Icon(Icons.check_circle_rounded, size: 32, color: Colors.green),
+      shouldIconPulse: false,
+      message: 'Invitation Send Successfully',
+      mainButton: TextButton(
+        child: Text(
+          '×',
+          style: TextStyle(color: Colors.white, fontSize: 25),
+        ),
+        onPressed: () {
+        },
+      ),
+      onTap: (_) {
+        print('Clicked bar');
+      },
+      duration: Duration(seconds: 3),
+      flushbarPosition: FlushbarPosition.TOP,
+      margin: EdgeInsets.fromLTRB(8, kToolbarHeight + 8, 8, 0),
+      borderRadius: BorderRadius.circular(30),
+    ),
+  );
+  void showTopSnackBar2(BuildContext context) => show(
+    context,
+    Flushbar(
+      shouldIconPulse: false,
+      message: 'Invitation Removed',
+      mainButton: TextButton(
+        child: Padding(
+          padding: const EdgeInsets.only(left: 18.0),
+          child: Text(
+            '×',
+            style: TextStyle(color: Colors.white, fontSize: 25),
+          ),
+        ),
+        onPressed: () {
+        },
+      ),
+      onTap: (_) {
+        print('Clicked bar');
+      },
+      duration: Duration(seconds: 3),
+      flushbarPosition: FlushbarPosition.TOP,
+      margin: EdgeInsets.fromLTRB(8, kToolbarHeight + 8, 8, 0),
+      borderRadius: BorderRadius.circular(30),
+    ),
+  );
 
   void getContactPermission() async {
     if (await Permission.contacts.isGranted) {
@@ -62,7 +126,7 @@ class _ContactsPageState extends State<ContactsPage> {
         final image = MemoryImage(avatarData);
         return CircleAvatar(
           radius: 22,
-          backgroundColor: Color(0xFFFFAE58),
+          backgroundColor: sharedValue=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
           backgroundImage: image,
           child: null,
         );
@@ -73,7 +137,7 @@ class _ContactsPageState extends State<ContactsPage> {
 
     return CircleAvatar(
       radius: 22,
-      backgroundColor: Color(0xFFFFAE58),
+      backgroundColor: sharedValue=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
       child: Text(
         displayName.isNotEmpty ? displayName[0].toUpperCase() : '',
         style: TextStyle(
@@ -105,7 +169,7 @@ class _ContactsPageState extends State<ContactsPage> {
               fontFamily: 'Titillium Web',
             ),
           ),
-          backgroundColor: Color(0xFFFFAE58),
+          backgroundColor: sharedValue=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
         ),
       ),
       body: Container(
@@ -144,6 +208,7 @@ class _ContactsPageState extends State<ContactsPage> {
                   itemBuilder: (context, index) {
                     final contact = filteredContacts[index];
                     final displayName = contact.givenName ?? '';
+                    final familyName = contact.familyName ?? '';
                     final phoneNumber =
                     contact.phones?.isNotEmpty == true
                         ? contact.phones!.first.value ?? ''
@@ -152,7 +217,7 @@ class _ContactsPageState extends State<ContactsPage> {
                     return ListTile(
                       leading: _buildAvatar(contact),
                       title: Text(
-                        displayName,
+                        "$displayName " "$familyName",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
@@ -173,12 +238,27 @@ class _ContactsPageState extends State<ContactsPage> {
                       trailing: Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text(
-                            '+ Add/ Invite',
-                            style: TextStyle(
-                              fontFamily: 'Titillium Web',
-                              fontSize: 14,
-                              color: Color(0xFFFFAE58),
+                          InkWell(
+                            onTap: (){
+                            setState(() {
+                              if(invited.contains(filteredContacts[index])){
+                                invited.remove(filteredContacts[index]);
+                                showTopSnackBar2(context);
+                              }
+                              else{
+                                invited.add(filteredContacts[index]);
+                                showTopSnackBar(context);
+                              };
+                            });
+                            print(invited.map((contact) => contact.givenName).toList());
+                              },
+                            child: Text(
+                              invited.contains(filteredContacts[index])?"Invited":'+ Add/Invite',
+                              style: TextStyle(
+                                fontFamily: 'Titillium Web',
+                                fontSize: 14,
+                                color: invited.contains(filteredContacts[index])?Color(0xFFFFAE58):Color(0xFF2ECC71),
+                              ),
                             ),
                           ),
                         ],

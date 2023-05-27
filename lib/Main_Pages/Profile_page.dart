@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_flutter/icons_flutter.dart';
+import 'package:uwallet/Main_Pages/my_QR.dart';
+import 'package:uwallet/contacts.dart';
+
+import '../utils/Shared_preferences.dart';
 
 
 class AccountPage extends StatefulWidget {
@@ -11,6 +15,7 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
+  final String? sharedValue = SharedPreferenceHelper().getValue();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +28,7 @@ class _AccountPageState extends State<AccountPage> {
                 padding: EdgeInsets.only(top: 45, left: 15, right: 15),
                 height: 400,
                 decoration: BoxDecoration(
-                    color: Colors.orangeAccent,
+                    color: sharedValue=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
                     borderRadius: BorderRadius.only(bottomRight: Radius.circular(30), bottomLeft:Radius.circular(30))
                 ),
                 child: Column(
@@ -36,11 +41,18 @@ class _AccountPageState extends State<AccountPage> {
                           height: 50,
                           width: 50,
                           decoration: BoxDecoration(
-                              color: Color(0xFFFFAE58),
+                              color: sharedValue=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
                               border: Border.all(width: 1, color: Colors.white60),
                               borderRadius: BorderRadius.circular(15)
                           ),
-                          child: Icon(Icons.qr_code, color: Colors.white,),
+                          child: InkWell(
+                              onTap: (){
+                                Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                    builder: (context) => MyQR()));
+                              },
+                              child: Icon(Icons.qr_code, color: Colors.white,)),
                         )
                       ],
                     ),
@@ -90,7 +102,7 @@ class _AccountPageState extends State<AccountPage> {
                       height: 200,
                       width: 310,
                       decoration: BoxDecoration(
-                        color: Color(0xFF4CD080),
+                        color: sharedValue=="Adult"?Color(0xFF2ECC71):Color(0xFFFFAE58),
                         borderRadius: BorderRadius.circular(25),
                       ),
                 ),
@@ -144,22 +156,55 @@ class _AccountPageState extends State<AccountPage> {
   Widget bwTiles() {
     return Column(
       children: [
-        bwTile(Icons.person, "Add or invite family"),
-        bwTile(Icons.lock, "Privacy & Security"),
-        bwTile(CupertinoIcons.gift, "Offers & Rewards"),
-        bwTile(Icons.help_rounded, "Help"),
-        bwTile(Icons.logout, "Logout"),
+        bwTile(Icons.person, "Add or invite family", () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ContactsPage()),
+          );
+        }),
+        bwTile(Icons.lock, "Privacy & Security", () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ContactsPage()),
+          );
+        }),
+        bwTile(
+          CupertinoIcons.gift,
+          "Offers & Rewards",
+              () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ContactsPage(
+
+                ),
+              ),
+            );
+          },
+        ),
+        bwTile(Icons.help_rounded, "Help", () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ContactsPage()),
+          );
+        }),
+        bwTile(Icons.logout, "Logout", () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ContactsPage()),
+          );
+        }),
       ],
     );
   }
 
 
 
-  Widget bwTile(IconData icon, String text) {
+  Widget bwTile(IconData icon, String text, VoidCallback onTap) {
     Color pickedColor = Color(0xfff3f4fe);
     return ListTile(
       leading: Container(
-        child: Icon(icon, color: Colors.orangeAccent),
+        child: Icon(icon, color: sharedValue=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71)),
         height: 45,
         width: 45,
         decoration: BoxDecoration(
