@@ -1,5 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uwallet/Otp_screen.dart';
 
@@ -13,6 +16,16 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final String userPhoneKey = 'userPhoneKey';
+  bool _isPhoneNumberRegistered = false;
+
+
+
+  Future<void> saveUserPhone(String userPhone) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(userPhoneKey, userPhone);
+  }
+
 
   Future<String> getUserType() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -25,8 +38,30 @@ class _RegisterState extends State<Register> {
     myController.dispose();
     super.dispose();
   }
+  Future<void> checkPhoneNumberRegistration() async {
+    String phoneNumber = myController.text;
 
-  bool _is11DigitsEntered = false;
+    setState(() {
+      _isPhoneNumberRegistered = false;
+    });
+
+    if (phoneNumber.isNotEmpty) {
+      bool isRegistered = await isPhoneNumberRegistered(phoneNumber);
+
+      setState(() {
+        _isPhoneNumberRegistered = isRegistered;
+      });
+    }
+  }
+  Future<bool> isPhoneNumberRegistered(String phoneNumber) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where('phoneNumber', isEqualTo: phoneNumber)
+        .get();
+
+    return querySnapshot.docs.isNotEmpty;
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<String>(
@@ -118,7 +153,7 @@ class _RegisterState extends State<Register> {
                                 fontWeight: FontWeight.bold,
                               ),
                               decoration: InputDecoration(
-                                //hintText: "(+88)",
+
                                 enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                         color: Colors.black12),
@@ -130,33 +165,18 @@ class _RegisterState extends State<Register> {
                                 prefixIcon: Padding(
                                   padding: EdgeInsets.all(15),
                                   child: Text(
-                                    '(+88)',
+                                    '+88',
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                 ),
-                                suffixIcon: Padding(
-                                  padding: const EdgeInsets.all(15.0),
-                                  child: _is11DigitsEntered
-                                      ? Icon(
-                                    Icons.check_circle,
-                                    color: Colors.green,
-                                    size: 32,
-                                  )
-                                      : null,
-                                ),
                               ),
                               inputFormatters: [
                                 LengthLimitingTextInputFormatter(11),
                                 FilteringTextInputFormatter.digitsOnly
                               ],
-                              onChanged: (value) {
-                                setState(() {
-                                  _is11DigitsEntered = value.length == 11;
-                                });
-                              },
                               controller: myController,
                             ),
                             SizedBox(
@@ -165,12 +185,28 @@ class _RegisterState extends State<Register> {
                             SizedBox(
                               width: double.infinity,
                               child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            OtpPage(number: myController.text)),
-                                  );
+                                onPressed: () async {
+                                  saveUserPhone(myController.text);
+                                  CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
+                                  QuerySnapshot snapshot = await usersCollection.where('phoneNumber', isEqualTo: myController.text).get();
+                                  if (snapshot.docs.isNotEmpty){
+                                    showToast(userType);
+                                  }
+                                  else{
+                                    await FirebaseAuth.instance.verifyPhoneNumber(
+                                      phoneNumber: '+88'+myController.text,
+                                      verificationCompleted: (PhoneAuthCredential credential) {},
+                                      verificationFailed: (FirebaseAuthException e) {},
+                                      codeSent: (String verificationId, int? resendToken) {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  OtpPage(number: myController.text, verify: verificationId,)),
+                                        );
+                                      },
+                                      codeAutoRetrievalTimeout: (String verificationId) {},
+                                    );
+                                  }
                                 },
                                 style: ButtonStyle(
                                   foregroundColor:
@@ -209,6 +245,15 @@ class _RegisterState extends State<Register> {
             );
           }
         }
+    );
+  }
+  void showToast(String user) {
+    Fluttertoast.showToast(
+      msg: 'This Number already has been used, try from different number',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP,
+      backgroundColor: user == "Adult" ? Color(0xFFFFAE58) : Color(0xFF2ECC71),
+      textColor: Colors.white,
     );
   }
 }

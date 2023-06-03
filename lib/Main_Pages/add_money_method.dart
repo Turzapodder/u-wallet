@@ -1,10 +1,43 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_flutter/icons_flutter.dart';
 import 'package:uwallet/Main_Pages/Bank_information.dart';
 import 'package:uwallet/utils/Procedure_row.dart';
 
+import '../utils/Shared_preferences.dart';
+import 'Top_up_confirm.dart';
+
 class AddMoneyMethod extends StatelessWidget {
-  const AddMoneyMethod({Key? key}) : super(key: key);
+  AddMoneyMethod({Key? key}) : super(key: key);
+
+  final String? phone = SharedPreferenceHelper().getUserPhone();
+
+  Future<void> checkDocumentExists(BuildContext context, String num) async {
+    try {
+      DocumentReference docRef = FirebaseFirestore.instance.collection('User_Bank_info').doc(num);
+      DocumentSnapshot docSnapshot = await docRef.get();
+
+      if (docSnapshot.exists) {
+        print('Document exists.');
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    TopUpConfirm()));
+      } else {
+        print('Document does not exist.');
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    Bank_information()));
+      }
+    } catch (e) {
+      // Handle any errors
+      print('Error checking document: $e');
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -57,11 +90,7 @@ class AddMoneyMethod extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: (){
-                        Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    Bank_information()));
+                        checkDocumentExists(context, phone!);
                       },
                       child: Container(
                         height:60,
@@ -110,7 +139,7 @@ class AddMoneyMethod extends StatelessWidget {
                       padding: EdgeInsets.symmetric(horizontal: 20,vertical: 15),
                       child: Column(
                         children: [
-                          Procedure(text: "Insert your Bank A/C no. and enter your PIN.", userType: "Teenager",size: 13),
+                          Procedure(text: "Insert your Bank A/C no. and enter \nyour PIN.", userType: "Teenager",size: 13),
                           SizedBox(height: 20,),
                           Procedure(text: "Select TRANSFER and click Bank Virtual\nAccount.", userType: "Teenager",size: 13),
                           SizedBox(height: 20,),

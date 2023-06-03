@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "804757921818",
+    "project_id": "u-wallet-71d7a",
+    "storage_bucket": "u-wallet-71d7a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:804757921818:android:c2dac775c5917f300b71a3",
+        "android_client_info": {
+          "package_name": "com.example.uwallet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdkxp0uTZu1ef7Wn3_wMyRRvOStZQTiGs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,5 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -7,8 +8,8 @@ import '../utils/Shared_preferences.dart';
 import 'custom_buton.dart';
 
 class CustomFollowNotifcation extends StatefulWidget {
-
-  const CustomFollowNotifcation({Key? key}) : super(key: key);
+  final List<DocumentSnapshot> invitations;
+  const CustomFollowNotifcation({required this.invitations,Key? key}) : super(key: key);
 
   @override
   State<CustomFollowNotifcation> createState() =>

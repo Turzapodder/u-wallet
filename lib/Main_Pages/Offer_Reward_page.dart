@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 
-import '../utils/Shared_preferences.dart';
+//import 'Offer_widget.dart';
 import '../widgets/transaction_item.dart';
 
-class TransactionPage extends StatelessWidget {
 
-  final String? sharedValue = SharedPreferenceHelper().getValue();
+class TransactionPage extends StatelessWidget {
   TransactionPage({Key? key}) : super(key: key);
 
   final List<Expense> items = [
-    Expense('Starbucks Coffee', DateTime.now(), "-৳156.00", Colors.green),
-    Expense('December Subscription', DateTime.now(), "-৳60.00", Colors.pinkAccent),
-    Expense('Netflix Subscription', DateTime.now(), "-৳87.00", Colors.black),
-    Expense('Starbucks Coffee', DateTime.now(), "-৳156.00", Colors.lightGreenAccent),
-    Expense('Starbucks Coffee', DateTime.now(), "-৳156.00", Colors.green),
-    Expense('December Subscription', DateTime.now(), "-৳60.00", Colors.pinkAccent),
-    Expense('Netflix Subscription', DateTime.now(), "-৳87.00", Colors.black),
-    Expense('Starbucks Coffee', DateTime.now(), "-৳156.00", Colors.lightGreenAccent),
+    Expense('20% off at Bookshop', DateTime.now(), "", Colors.green),
+    Expense('Buy One Get One From Unimart', DateTime.now(), "", Colors.pinkAccent),
+    Expense('Get 10% cashback at UIU canteen \non June 18 and 19', DateTime.now(), "", Colors.black),
+    Expense('COMPUTER ClUB KIT PROMO CODE', DateTime.now(), "", Colors.lightGreenAccent),
+    /*Expensee('Starbucks Coffee', DateTime.now(), "-৳156.00", Colors.green),
+    Expensee('December Subscription', DateTime.now(), "-৳60.00", Colors.pinkAccent),
+    Expensee('Netflix Subscription', DateTime.now(), "-৳87.00", Colors.black),
+    Expensee('Starbucks Coffee', DateTime.now(), "-৳156.00", Colors.lightGreenAccent),*/
   ];
 
   @override
@@ -24,10 +23,10 @@ class TransactionPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: sharedValue=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
+        backgroundColor: Color(0xFFFFAE58),
         title: Text(
-          'Transactions',
-          style: TextStyle(fontFamily: "Titillium Web", fontWeight: FontWeight.bold),
+          'Offers & Rewards',
+          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         leading: IconButton(
@@ -42,9 +41,10 @@ class TransactionPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Expenses",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              "Spend More, Save More \u{1F60A}", // Add the Unicode representation of the smile emoji
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
             ),
+
             const SizedBox(
               height: 10,
             ),
@@ -71,11 +71,4 @@ class TransactionPage extends StatelessWidget {
   }
 }
 
-class Expense {
-  final String merchant_name;
-  final DateTime time;
-  final String amount;
-  final Color bg;
 
-  Expense(this.merchant_name, this.time, this.amount, this.bg);
-}

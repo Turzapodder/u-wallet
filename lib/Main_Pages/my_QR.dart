@@ -6,15 +6,19 @@ import '../utils/Shared_preferences.dart';
 
 class MyQR extends StatelessWidget {
 
-  final String string1 = 'Turza Podder';
-  final String string2 = '01871038150';
+
    MyQR({Key? key}) : super(key: key);
 
   final String? sharedValue = SharedPreferenceHelper().getValue();
+  final String? phoneNumber = SharedPreferenceHelper().getUserPhone();
+  final String? userName = SharedPreferenceHelper().getUserName();
+
+
 
   @override
   Widget build(BuildContext context) {
-    String combinedString = '$string1|$string2';
+    String combinedString = '$userName|$phoneNumber|$sharedValue';
+    print(userName);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(

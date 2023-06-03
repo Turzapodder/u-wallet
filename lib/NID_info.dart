@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uwallet/set_profile_photo_screen.dart';
 
 class PersonalInfoPage extends StatelessWidget {
+
+  late final File nidImage;
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController fatherNameController = TextEditingController();
@@ -11,9 +15,41 @@ class PersonalInfoPage extends StatelessWidget {
   final TextEditingController citizenshipController = TextEditingController();
   final TextEditingController nidController = TextEditingController();
 
+  PersonalInfoPage({required this.nidImage,Key? key}) : super(key: key);
+
   Future<String> getUserType() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('userTypeKey') ?? "";
+  }
+
+  Future<void> saveName(String name) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userNameKey', name);
+  }
+
+  Future<void> saveFather(String father) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userFatherKey', father);
+  }
+
+  Future<void> saveMother(String mother) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userMotherKey', mother);
+  }
+
+  Future<void> saveNID(String nid) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userNidKey', nid);
+  }
+
+  Future<void> saveCitizen(String citizen) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userNationalKey', citizen);
+  }
+
+  Future<void> saveAddress(String add) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('userAddressKey', add);
   }
 
   @override
@@ -28,7 +64,8 @@ class PersonalInfoPage extends StatelessWidget {
             return Scaffold(
               appBar: AppBar(
                 elevation: 0,
-                backgroundColor: userType=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
+                backgroundColor:
+                    userType == "Adult" ? Color(0xFFFFAE58) : Color(0xFF2ECC71),
                 title: Text(
                   'Personal Information',
                   style: TextStyle(fontFamily: "Titillium Web"),
@@ -55,7 +92,9 @@ class PersonalInfoPage extends StatelessWidget {
                         decoration: InputDecoration(
                           labelText: 'First Name',
                           labelStyle: TextStyle(
-                              color: userType=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
+                              color: userType == "Adult"
+                                  ? Color(0xFFFFAE58)
+                                  : Color(0xFF2ECC71),
                               fontFamily: "Titillium Web"),
                           border: UnderlineInputBorder(),
                         ),
@@ -66,7 +105,9 @@ class PersonalInfoPage extends StatelessWidget {
                         decoration: InputDecoration(
                           labelText: 'Last Name',
                           labelStyle: TextStyle(
-                              color: userType=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
+                              color: userType == "Adult"
+                                  ? Color(0xFFFFAE58)
+                                  : Color(0xFF2ECC71),
                               fontFamily: "Titillium Web"),
                           border: UnderlineInputBorder(),
                         ),
@@ -77,7 +118,9 @@ class PersonalInfoPage extends StatelessWidget {
                         decoration: InputDecoration(
                           labelText: 'Father Name',
                           labelStyle: TextStyle(
-                              color: userType=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
+                              color: userType == "Adult"
+                                  ? Color(0xFFFFAE58)
+                                  : Color(0xFF2ECC71),
                               fontFamily: "Titillium Web"),
                           border: UnderlineInputBorder(),
                         ),
@@ -88,7 +131,9 @@ class PersonalInfoPage extends StatelessWidget {
                         decoration: InputDecoration(
                           labelText: 'Mother Name',
                           labelStyle: TextStyle(
-                              color: userType=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
+                              color: userType == "Adult"
+                                  ? Color(0xFFFFAE58)
+                                  : Color(0xFF2ECC71),
                               fontFamily: "Titillium Web"),
                           border: UnderlineInputBorder(),
                         ),
@@ -99,7 +144,9 @@ class PersonalInfoPage extends StatelessWidget {
                         decoration: InputDecoration(
                           labelText: 'Address',
                           labelStyle: TextStyle(
-                              color: userType=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
+                              color: userType == "Adult"
+                                  ? Color(0xFFFFAE58)
+                                  : Color(0xFF2ECC71),
                               fontFamily: "Titillium Web"),
                           border: UnderlineInputBorder(),
                         ),
@@ -110,7 +157,9 @@ class PersonalInfoPage extends StatelessWidget {
                         decoration: InputDecoration(
                           labelText: 'Citizenship',
                           labelStyle: TextStyle(
-                              color: userType=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
+                              color: userType == "Adult"
+                                  ? Color(0xFFFFAE58)
+                                  : Color(0xFF2ECC71),
                               fontFamily: "Titillium Web"),
                           border: UnderlineInputBorder(),
                         ),
@@ -121,7 +170,9 @@ class PersonalInfoPage extends StatelessWidget {
                         decoration: InputDecoration(
                           labelText: 'NID no.',
                           labelStyle: TextStyle(
-                              color: userType=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
+                              color: userType == "Adult"
+                                  ? Color(0xFFFFAE58)
+                                  : Color(0xFF2ECC71),
                               fontFamily: "Titillium Web"),
                           border: UnderlineInputBorder(),
                         ),
@@ -130,26 +181,26 @@ class PersonalInfoPage extends StatelessWidget {
                       Center(
                         child: ElevatedButton(
                           onPressed: () {
-                            List<String> textFieldsValues = [
-                              firstNameController.text,
-                              lastNameController.text,
-                              fatherNameController.text,
-                              motherNameController.text,
-                              addressController.text,
-                              citizenshipController.text,
-                              nidController.text,
-                            ];
-
+                            saveName(firstNameController.text +
+                                " " +
+                                lastNameController.text);
+                            saveFather(fatherNameController.text);
+                            saveMother(motherNameController.text);
+                            saveAddress(addressController.text);
+                            saveCitizen(citizenshipController.text);
+                            saveNID(nidController.text);
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => SetProfilePhotoScreen(),
+                                builder: (context) => SetProfilePhotoScreen(nid_bc_image:nidImage),
                               ),
                             );
                           },
                           style: ElevatedButton.styleFrom(
                             elevation: 0,
-                            backgroundColor: userType=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),
+                            backgroundColor: userType == "Adult"
+                                ? Color(0xFFFFAE58)
+                                : Color(0xFF2ECC71),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(25.0),
                             ),

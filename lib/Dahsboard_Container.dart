@@ -2,12 +2,13 @@ import 'package:animated_bottom_navigation_bar/animated_bottom_navigation_bar.da
 import 'package:flutter/material.dart';
 import 'package:icons_flutter/icons_flutter.dart';
 import 'package:uwallet/Main_Pages/QR_Scanner.dart';
-import 'package:uwallet/Main_Pages/Transaction_page.dart';
+//import 'package:uwallet/Main_Pages/Transaction_page.dart';
 import 'package:uwallet/Main_Pages/notification_page.dart';
 import 'package:uwallet/utils/Shared_preferences.dart';
 
 import 'Main_Pages/Dashboard.dart';
 import 'Main_Pages/Profile_page.dart';
+import 'Main_Pages/Trnxn.dart';
 
 class DashboardContainer extends StatefulWidget {
   const DashboardContainer({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class DashboardContainer extends StatefulWidget {
 
 class _DashboardContainerState extends State<DashboardContainer> {
   final String? sharedValue = SharedPreferenceHelper().getValue();
+  final String? Phone = SharedPreferenceHelper().getUserPhone();
   int _selectedIndex=0;
 
   void _navigateBottomBar(int index){

@@ -181,7 +181,7 @@ class _SetBirthPhotoScreenState extends State<SetBirthPhotoScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => PersonalInfoPage()),
+                                  builder: (context) => PersonalInfoPage(nidImage: _image!)),
                             );
                           },
                           backgroundColor: userType=="Adult"?Color(0xFFFFAE58):Color(0xFF2ECC71),

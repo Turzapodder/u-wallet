@@ -14,6 +14,13 @@ class ForgotOtpPage extends StatefulWidget {
 }
 
 class _ForgotOtpPageState extends State<ForgotOtpPage> {
+
+  final TextEditingController otpController1 = TextEditingController();
+  final TextEditingController otpController2 = TextEditingController();
+  final TextEditingController otpController3 = TextEditingController();
+  final TextEditingController otpController4 = TextEditingController();
+  final TextEditingController otpController5 = TextEditingController();
+  final TextEditingController otpController6 = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -88,36 +95,37 @@ class _ForgotOtpPageState extends State<ForgotOtpPage> {
                 height: 28,
               ),
               Container(
-                padding: EdgeInsets.all(10),
+                height: 400,
+                width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   //borderRadius: BorderRadius.circular(12),
                 ),
                 child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Form(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            OtpDots(),
-                            OtpDots(),
-                            OtpDots(),
-                            OtpDots(),
-                          ],
-                        ),
+                    Form(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          OtpDots(controller: otpController1),
+                          OtpDots(controller: otpController2),
+                          OtpDots(controller: otpController3),
+                          OtpDots(controller: otpController4),
+                          OtpDots(controller: otpController5),
+                          OtpDots(controller: otpController6),
+                        ],
                       ),
                     ),
                     SizedBox(
-                      height: 30,
+                      height: 50,
                     ),
                     InkWell(
                       onTap: () {
-                        Navigator.pushReplacement(
+                        print(otpController1.text+otpController2.text+otpController3.text+otpController4.text+otpController5.text+otpController6.text);
+                        /*Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ForgotPassPage()));
+                                builder: (context) => ForgotPassPage()));*/
                       },
                       child: SizedBox(
                         width: double.infinity,

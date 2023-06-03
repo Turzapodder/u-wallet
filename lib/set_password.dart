@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uwallet/reg_success.dart';
 import 'package:uwallet/registration_proc.dart';
@@ -12,6 +13,7 @@ class PasswordPage extends StatefulWidget {
 class _PasswordPageState extends State<PasswordPage> {
 
   bool _isHidden = true;
+  final String userPassword = 'userPasswordKey';
   Future<String> getUserType() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('userTypeKey') ?? "";
@@ -22,6 +24,11 @@ class _PasswordPageState extends State<PasswordPage> {
       _isHidden = !_isHidden;
     });
   }
+  Future<void> savePassword(String pass) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(userPassword, pass);
+  }
+  final TextEditingController otpController1 = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -118,6 +125,7 @@ class _PasswordPageState extends State<PasswordPage> {
                               LengthLimitingTextInputFormatter(5),
                               FilteringTextInputFormatter.digitsOnly,
                             ],
+                            controller: otpController1,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -130,6 +138,7 @@ class _PasswordPageState extends State<PasswordPage> {
                           SizedBox(height: 50.0),
                           InkWell(
                             onTap: () {
+                              savePassword(otpController1.text);
                               Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
@@ -169,4 +178,5 @@ class _PasswordPageState extends State<PasswordPage> {
         }
     );
   }
+
 }

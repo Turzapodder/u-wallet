@@ -1,15 +1,20 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:uwallet/utils/Shared_preferences.dart';
 import 'package:uwallet/welldone.dart';
 import '../widgets/common_buttons.dart';
 import 'package:uwallet/select_photo_options_screen.dart';
 
+
 class SetProfilePhotoScreen extends StatefulWidget {
-  const SetProfilePhotoScreen({super.key});
+  final File nid_bc_image;
+  const SetProfilePhotoScreen({required this.nid_bc_image,super.key});
 
   static const id = 'set_photo_screen';
 
@@ -20,6 +25,16 @@ class SetProfilePhotoScreen extends StatefulWidget {
 class _SetProfilePhotoScreenState extends State<SetProfilePhotoScreen> {
   File? _image;
   bool _showScanButton = false;
+  final String? uid = SharedPreferenceHelper().getUID();
+  final String? name = SharedPreferenceHelper().getName();
+  final String? phone = SharedPreferenceHelper().getPhone();
+  final String? nid = SharedPreferenceHelper().getNID();
+  final String? fatherName = SharedPreferenceHelper().getFatherName();
+  final String? motherName = SharedPreferenceHelper().getMotherName();
+  final String? address = SharedPreferenceHelper().getAddress();
+  final String? nationality = SharedPreferenceHelper().getNational();
+  final String? pass = SharedPreferenceHelper().getPassword();
+
 
   Future<String> getUserType() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -76,6 +91,55 @@ class _SetProfilePhotoScreenState extends State<SetProfilePhotoScreen> {
               }),
     );
   }
+
+  Future<void> uploadUserData(
+      String uid,
+      String name,
+      String type,
+      String phoneNumber,
+      String father,
+      String mother,
+      String addrs,
+      String password,
+      String national,
+      File profile,
+      File document) async {
+    // Create a reference to the Firebase storage bucket
+    final storage = FirebaseStorage.instance;
+    final storageRef = storage.ref();
+
+
+    final photo1Ref = storageRef.child('users/${name} - ${uid}/Profile.jpg');
+    final photo2Ref = storageRef.child('users/${name} - ${uid}/NID.jpg');
+    final uploadTask1 = photo1Ref.putFile(profile);
+    final uploadTask2 = photo2Ref.putFile(document);
+
+    final profilePicUrl = await (await uploadTask1).ref.getDownloadURL();
+    final documentUrl = await (await uploadTask2).ref.getDownloadURL();
+
+    final firestore = FirebaseFirestore.instance;
+    final userCollection = firestore.collection('users');
+
+    final userDocument = userCollection.doc(uid);
+
+    // Set the data in the document
+    await userDocument.set({
+      'phoneNumber': phone,
+      'name': name,
+      'fatherName': father,
+      'motherName': mother,
+      'nationality': national,
+      'address': addrs,
+      'nid': nid,
+      'userType': type,
+      'balance' : 0.0,
+      'password': password,
+      'profilePicUrl': profilePicUrl,
+      'documentUrl': documentUrl,
+
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -184,6 +248,7 @@ class _SetProfilePhotoScreenState extends State<SetProfilePhotoScreen> {
                               _showScanButton == true
                                   ? CommonButtons(
                                 onTap: () {
+                                  uploadUserData(uid!,name!, userType, phone!, fatherName!, motherName!,address!,pass!,nationality!, _image!,widget.nid_bc_image);
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(

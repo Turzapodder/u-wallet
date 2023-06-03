@@ -43,7 +43,6 @@ dependencies:
   camera: ^0.10.5
   image_cropper: ^2.0.3
   path_provider: ^2.0.15
-  curved_navigation_bar: ^1.0.3
   icons_flutter: ^0.0.4
   animated_bottom_navigation_bar: ^1.2.0
   intl: ^0.17.0
@@ -52,6 +51,13 @@ dependencies:
   flutter_custom_clippers: ^2.1.0
   mobile_scanner: ^2.1.0
   qr_flutter: ^4.0.0
+  firebase_auth: ^4.6.2
+  firebase_core: ^2.13.1
+  firebase_storage: ^11.2.2
+  provider: ^6.0.5
+  fluttertoast: ^8.2.2
+  cloud_firestore: ^4.6.0
+  rxdart: ^0.27.7
 
 dev_dependencies:
   flutter_test:

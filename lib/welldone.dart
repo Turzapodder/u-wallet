@@ -9,6 +9,17 @@ class Welldone extends StatelessWidget {
     return prefs.getString('userTypeKey') ?? "";
   }
 
+  void ClearSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+    await prefs.remove('userFatherKey');
+    await prefs.remove('userMotherKey');
+    await prefs.remove('userNidKey');
+    await prefs.remove('userNationalKey');
+    await prefs.remove('userAddressKey');
+    await prefs.remove('userNameKey');
+  }
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<String>(
@@ -60,8 +71,8 @@ class Welldone extends StatelessWidget {
 
                           Center(
                             child: ElevatedButton(
-                              onPressed: () {
-
+                              onPressed: () async {
+                                ClearSharedPreferences();
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(

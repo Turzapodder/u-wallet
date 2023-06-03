@@ -1,10 +1,14 @@
+
 import 'package:flutter/material.dart';
 import 'package:icons_flutter/icons_flutter.dart';
 import 'package:uwallet/Main_Pages/Paymnet_contacts.dart';
+
 import 'package:uwallet/Main_Pages/add_money_method.dart';
 import 'package:uwallet/Main_Pages/bill_pay.dart';
-import 'package:uwallet/contacts.dart';
+import 'package:uwallet/Main_Pages/invite_contacts.dart';
 
+import '../Main_Pages/Request_money.dart';
+import '../Main_Pages/history.dart';
 import '../utils/Shared_preferences.dart';
 
 class dashboard_container extends StatelessWidget {
@@ -15,8 +19,10 @@ class dashboard_container extends StatelessWidget {
   });
 
   final String? sharedValue = SharedPreferenceHelper().getValue();
+  final String? phoneNumber = SharedPreferenceHelper().getPhone();
 
-  @override
+
+   @override
   Widget build(BuildContext context) {
     return Container(
       height: 80,
@@ -61,7 +67,7 @@ class dashboard_container extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                          sharedValue=="Adult"?AddMoneyMethod():ContactsPage()));
+                          sharedValue=="Adult"?AddMoneyMethod():RequestMoeny()));
                 },
               ),
               Text(sharedValue=="Adult"?"Add Money":"Request Money",style: TextStyle(fontSize: 12, color: Colors.white)),
@@ -81,6 +87,11 @@ class dashboard_container extends StatelessWidget {
                 icon: Icon(Icons.history_outlined, color: Colors.white, size: 30,),
                 onPressed: () {
                   // Add your onPressed logic here
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              TransactionListView(phoneNumber: phoneNumber!,)));
                 },
               ),
               Text("History", style: TextStyle(fontSize: 12, color: Colors.white)),

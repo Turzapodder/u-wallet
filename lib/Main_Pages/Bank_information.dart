@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:uwallet/Main_Pages/Top_up_confirm.dart';
 import 'package:uwallet/Main_Pages/payment_success.dart';
@@ -48,16 +50,20 @@ class _Bank_informationState extends State<Bank_information> {
             "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Sonali_Bank_Limited.svg/1280px-Sonali_Bank_Limited.svg.png",
         text: "Sonali Bank"),
   ];
+
   final TextEditingController nameControl = TextEditingController();
   final TextEditingController cardControl = TextEditingController();
   final TextEditingController ExpiryControl = TextEditingController();
   final TextEditingController cvvControl = TextEditingController();
+  final String? phoneNumber = SharedPreferenceHelper().getUserPhone();
   late CardItem selectedCard;
+  late String bankName;
 
   int selectedIndex= -1;
   void selectCard(CardItem card) {
     setState(() {
       selectedCard = card;
+      bankName = selectedCard.text;
     });
 
     // Perform any additional operations with the selected card data
@@ -75,23 +81,35 @@ class _Bank_informationState extends State<Bank_information> {
 
   void navigateToDestinationPage() {
 
-    String NameData = nameControl.text;
-    String CardData = cardControl.text;
-    String expireData = ExpiryControl.text;
-    String cvvData = cvvControl.text;
 
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => TopUpConfirm(
-          selectedCard: selectedCard,
-          nameData: NameData,
-            cardData:CardData,
-          cvvData: cvvData,
-          expireData: expireData,
-        ),
+        builder: (context) => TopUpConfirm(),
       ),
     );
+  }
+  Future<void> uploadBankData(
+      String Bankname,
+      String ACHolder,
+      String CardNo,
+      String ExpiryDate,
+      int CVV,
+      String phoneNumber,
+      ) async {
+    // Create a reference to the Firebase storage bucket
+    final firestore = FirebaseFirestore.instance;
+    final userCollection = firestore.collection('User_Bank_info');
+
+    final userDocument = userCollection.doc(phoneNumber);
+
+    await userDocument.set({
+      'BankName': Bankname,
+      'ACHolder': ACHolder,
+      'CardNo': CardNo,
+      'ExpiryDate': ExpiryDate,
+      'CVV': CVV,
+    });
   }
 
 
@@ -226,6 +244,7 @@ class _Bank_informationState extends State<Bank_information> {
                         ),
                         InkWell(
                           onTap: () {
+                            uploadBankData(bankName, nameControl.text, cardControl.text, ExpiryControl.text, int.parse(cvvControl.text), phoneNumber!);
                             navigateToDestinationPage();
                           },
                           child: Container(

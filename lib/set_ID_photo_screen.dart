@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uwallet/NID_info.dart';
 import '../widgets/common_buttons.dart';
 import 'package:uwallet/select_photo_options_screen.dart';
@@ -19,6 +20,11 @@ class SetPhotoScreen extends StatefulWidget {
 class _SetPhotoScreenState extends State<SetPhotoScreen> {
   File? _image;
   bool _showScanButton = false;
+
+  Future<void> storeImagePath(String imagePath) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('imagePath', imagePath);
+  }
 
   Future _pickImage(ImageSource source) async {
     try {
@@ -161,9 +167,11 @@ class _SetPhotoScreenState extends State<SetPhotoScreen> {
                     ),
                     _showScanButton==true
                       ?CommonButtons(
-                        onTap: () {Navigator.push(
+                        onTap: () {
+                          //storeImagePath(_image);
+                          Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => PersonalInfoPage()),
+                          MaterialPageRoute(builder: (context) => PersonalInfoPage(nidImage: _image!,)),
                         );},
                         backgroundColor: Color(0xFFFFAE58),
                         textColor: Colors.white,

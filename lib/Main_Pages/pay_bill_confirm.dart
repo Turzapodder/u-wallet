@@ -1,7 +1,6 @@
-import 'dart:ffi';
+
 
 import 'package:flutter/material.dart';
-import 'package:icons_flutter/icons_flutter.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 import 'package:uwallet/Main_Pages/bill_success.dart';
@@ -23,18 +22,6 @@ PayBillCofrimPage(
   OtpFieldController otpController = OtpFieldController();
 
 
-
-  void _navigateToNextPage() {
-    final String text1 = _textController1.text;
-    final String text2 = _textController2.text;
-
-    /*Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => NextPage(text1: text1, text2: text2),
-      ),
-    );*/
-  }
 
 
   @override

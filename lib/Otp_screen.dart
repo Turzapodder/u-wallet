@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:uwallet/set_password.dart';
 import 'package:uwallet/widgets/otp_dots.dart';
@@ -7,7 +9,8 @@ import 'package:uwallet/widgets/otp_dots.dart';
 
 class OtpPage extends StatefulWidget {
   final String number;
-  OtpPage({required this.number});
+  final String verify;
+  OtpPage({required this.number, required this.verify});
 
   @override
   _OtpPageState createState() => _OtpPageState();
@@ -15,10 +18,28 @@ class OtpPage extends StatefulWidget {
 
 class _OtpPageState extends State<OtpPage> {
 
+  final String userUidKey = 'userUidKey';
+
+  final TextEditingController otpController1 = TextEditingController();
+  final TextEditingController otpController2 = TextEditingController();
+  final TextEditingController otpController3 = TextEditingController();
+  final TextEditingController otpController4 = TextEditingController();
+  final TextEditingController otpController5 = TextEditingController();
+  final TextEditingController otpController6 = TextEditingController();
+
+  FirebaseAuth auth = FirebaseAuth.instance;
+
   Future<String> getUserType() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('userTypeKey') ?? "";
   }
+
+  Future<void> saveUserID(String uid) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString(userUidKey, uid);
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<String>(
@@ -28,6 +49,7 @@ class _OtpPageState extends State<OtpPage> {
             return CircularProgressIndicator();
           } else {
             String userType = snapshot.data ?? "";
+            String code ="";
             return Scaffold(
               resizeToAvoidBottomInset: false,
               backgroundColor: Colors.white,
@@ -114,38 +136,44 @@ class _OtpPageState extends State<OtpPage> {
                         height: 28,
                       ),
                       Container(
-                        padding: EdgeInsets.all(10),
                         decoration: BoxDecoration(
                           color: Colors.white,
                           //borderRadius: BorderRadius.circular(12),
                         ),
                         child: Column(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10),
-                              child: Form(
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .spaceBetween,
-                                  children: [
-                                    OtpDots(),
-                                    OtpDots(),
-                                    OtpDots(),
-                                    OtpDots(),
-                                  ],
-                                ),
+                            Form(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment
+                                    .spaceBetween,
+                                children: [
+                                  OtpDots(controller: otpController1),
+                                  OtpDots(controller: otpController2),
+                                  OtpDots(controller: otpController3),
+                                  OtpDots(controller: otpController4),
+                                  OtpDots(controller: otpController5),
+                                  OtpDots(controller: otpController6),
+                                ],
                               ),
                             ),
                             SizedBox(
                               height: 30,
                             ),
                             InkWell(
-                              onTap: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => PasswordPage()));
+                              onTap: () async {
+                                code=otpController1.text+otpController2.text+otpController3.text+otpController4.text+otpController5.text+otpController6.text;
+                                try{
+                                  PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: widget.verify, smsCode: code);
+                                  UserCredential userCredential =await auth.signInWithCredential(credential);
+                                  if (userCredential.user != null){saveUserID(userCredential.user!.uid);
+                                  print(userCredential.user!.uid);}
+                                  else{print('User credential is null');}
+                                  Navigator.pushNamedAndRemoveUntil(context, 'passwordPage', (route) => false);
+                                }
+                                catch(e){
+                                  showToast();
+                                }
+                                /**/
                               },
                               child: SizedBox(
                                 width: double.infinity,
@@ -182,6 +210,15 @@ class _OtpPageState extends State<OtpPage> {
             );
           }
         }
+    );
+  }
+  void showToast() {
+    Fluttertoast.showToast(
+      msg: 'Wrong OTP! Please provide the correct OTP',
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM,
+      backgroundColor: Colors.black54,
+      textColor: Colors.white,
     );
   }
   }
